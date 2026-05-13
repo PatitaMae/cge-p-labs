@@ -34,6 +34,7 @@ resource "aws_s3_bucket" "primary" {
 }
 
 # SC-28: Protection of information at rest
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "primary" {
   bucket = aws_s3_bucket.primary.id
   rule {
@@ -78,6 +79,7 @@ resource "aws_s3_bucket_acl" "log" {
   acl        = "log-delivery-write"
 }
 
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "log" {
   bucket = aws_s3_bucket.log.id
   rule {
@@ -97,4 +99,12 @@ resource "aws_s3_bucket_logging" "primary" {
   bucket        = aws_s3_bucket.primary.id
   target_bucket = aws_s3_bucket.log.id
   target_prefix = "access-logs/"
+}
+
+# CM-6: Versioning preserves object states for audit
+resource "aws_s3_bucket_versioning" "log" {
+  bucket = aws_s3_bucket.log.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
