@@ -62,8 +62,8 @@ jobs:
             echo "["
             FIRST=1
             for ns in compliance.sc28_aws compliance.ac3_aws compliance.cm6_aws compliance.cm6 ; do
-              [[ $FIRST -eq 1 ]] && FIRST=0 || printf ","
-              conftest test --policy ../lab-3-4/policies --namespace "$ns" --output=json plan.json || true
+                [[ $FIRST -eq 1 ]] && FIRST=0 || printf ","
+                conftest test --policy ../lab-3-4/policies --namespace "$ns" --output=json plan.json || true
             done
             echo "]"
           } > ../evidence/conftest-results.json
@@ -96,6 +96,7 @@ jobs:
       - name: Copy plan into evidence
         if: always()
         run: |
+          mkdir -p labs/evidence
           cp ${{ env.TF_WORKING_DIR }}/plan.json labs/evidence/plan.json
           cp ${{ env.TF_WORKING_DIR }}/plan.txt  labs/evidence/plan.txt
 
@@ -104,5 +105,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: grc-evidence-${{ github.run_id }}
-          path: evidence/
+          path: labs/evidence/
           retention-days: 90
