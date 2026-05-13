@@ -74,7 +74,23 @@ jobs:
           print(f"conftest failures: {fails}")
           sys.exit(0 if fails == 0 else 1)
           '
-
+      - name: Print policy violations
+        if: always()
+        run: |
+          echo "=== Policy Violations ==="
+          cat labs/evidence/conftest-results.json | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          found = False
+          for results in d:
+              for r in results:
+                  for f in r.get('failures', []):
+                      print('VIOLATION:', f.get('msg'))
+                      found = True
+          if not found:
+              print('No violations found!!')
+          "
+          
       - name: tfsec scan
         id: tfsec
         if: always()
