@@ -33,17 +33,6 @@ resource "aws_s3_bucket" "primary" {
   bucket = local.primary_name
 }
 
-# SC-28: Protection of information at rest
-#tfsec:ignore:aws-s3-encryption-customer-key
-resource "aws_s3_bucket_server_side_encryption_configuration" "primary" {
-  bucket = aws_s3_bucket.primary.id
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
-}
-
 # CM-6: Versioning preserves object states for audit
 resource "aws_s3_bucket_versioning" "primary" {
   bucket = aws_s3_bucket.primary.id
