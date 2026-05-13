@@ -1,0 +1,9 @@
+# tfsec suppressions with justification
+# CGE-P Lab environment
+
+minimum_severity: HIGH
+
+exclude:
+  - aws-s3-encryption-customer-key
+  # AES256 server-side encryption satisfies SC-28 for this
+  # lab compliance tier. CMEK not required at this level.

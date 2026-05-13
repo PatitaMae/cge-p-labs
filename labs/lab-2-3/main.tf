@@ -98,3 +98,11 @@ resource "aws_s3_bucket_logging" "primary" {
   target_bucket = aws_s3_bucket.log.id
   target_prefix = "access-logs/"
 }
+
+# CM-6: Versioning preserves object states for audit
+resource "aws_s3_bucket_versioning" "log" {
+  bucket = aws_s3_bucket.log.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
