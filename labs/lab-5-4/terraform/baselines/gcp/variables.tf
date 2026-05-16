@@ -1,0 +1,1 @@
+# variables are defined in main.tf for this lab
