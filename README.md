@@ -77,4 +77,4 @@ The OSCAL component definition in labs/lab-6-1 describes how the compliant-s3 mo
 
 Lab content created by:
 - [AJ Yawn](https://github.com/aynole) — Executive Chairman & Founder, GRC Engineering Club 
-- [Abdie Mohamed](https://github.com/abdie-grcengineer) — President, GRC Engeeniring Club
+- [Abdie Mohamed](https://github.com/abdie-grcengineer) — President, GRC Engineering Club
